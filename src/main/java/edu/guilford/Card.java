@@ -103,22 +103,20 @@ public class Card implements Comparable<Card> {
         // return 0 if this card is equal to otherCard
         // return 1 if this card is greater than otherCard
 
-        // First, compare the ranks
-        if (this.rank.getRank() < otherCard.rank.getRank()) {
-            return -1;
-        } else if (this.rank.getRank() > otherCard.rank.getRank()) {
+        // First, compare the suits
+        if (this.suit.ordinal() < otherCard.suit.ordinal()) { // ordinal() returns the position of the enum constant
+            return -1; // We ordered the suits so that the lower the ordinal, the higher the suit
+                       // (CLUBS at 0 is highest, DIAMONDS at 3 is lowest)
+        } else if (this.suit.ordinal() > otherCard.suit.ordinal()) {
             return 1;
-        } else {
-            // If the ranks are the same, compare the suits
-            if (this.suit.ordinal() > otherCard.suit.ordinal()) { // ordinal() returns the position of the enum constant
-                return -1; // We ordered the suits so that the lower the ordinal, the higher the suit (CLUBS at 0 is
-                           // highest, DIAMONDS at 3 is lowest)
-            } else if (this.suit.ordinal() < otherCard.suit.ordinal()) {
-                return 1;
-            } else {
-                return 0;
-                
-            }
         }
+        // If the suits are the same, compare the ranks
+        if (this.rank.getRank() > otherCard.rank.getRank()) {
+            return -1;
+        } else if (this.rank.getRank() < otherCard.rank.getRank()) {
+            return 1;
+        }
+        // If the suits and ranks are the same, the cards are equal
+        return 0;
     }
 }
